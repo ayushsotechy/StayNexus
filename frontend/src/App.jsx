@@ -1,9 +1,17 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home.jsx';
+import Login from './pages/Login.jsx';
+import Signup from './pages/Signup.jsx';
+
 export default function App() {
   return (
-    <div className="h-screen flex items-center justify-center bg-black text-white">
-      <h1 className="text-4xl font-bold text-red-500">
-        StayNexus Ready
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
