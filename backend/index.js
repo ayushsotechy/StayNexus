@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 import connectDB from './configs/database.js';
+import attendanceRouter from './routes/attendance.route.js';
 import hostelCartRouter from './routes/hostelcart.route.js';
 import userRouter from './routes/user.route.js';
 
@@ -17,6 +18,7 @@ app.use(
 );
 app.use(express.json());
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/attendance', attendanceRouter);
 app.use('/api/v1/hostelcart', hostelCartRouter);
 
 app.get('/', (req, res) => {
