@@ -47,6 +47,7 @@ const googleLogin = async (req, res) => {
 				name: user.name,
 				_id: user._id,
 				email: user.email,
+				phoneNumber: user.phoneNumber,
 				roomNumber: user.roomNumber,
 				hostelName: user.hostelName,
 			},

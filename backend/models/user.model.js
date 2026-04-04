@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema({
 			message: (props) => `${props.value} is not a valid email!`,
 		},
 	},
+	phoneNumber: {
+		type: Number,
+		unique: true,
+		sparse: true,
+	},
 	googleId: {
 		type: String,
 		unique: true,
@@ -68,14 +73,20 @@ userSchema.methods.comparePassword = async function comparePassword(candidatePas
 
 // Create JWT
 userSchema.methods.createJWT = function createJWT() {
+	const payload = {
+		userId: this._id,
+		name: this.name,
+		email: this.email,
+		roomNumber: this.roomNumber,
+		hostelName: this.hostelName,
+	};
+
+	if (this.phoneNumber !== undefined && this.phoneNumber !== null) {
+		payload.phoneNumber = this.phoneNumber;
+	}
+
 	return jwt.sign(
-		{
-			userId: this._id,
-			name: this.name,
-			email: this.email,
-			roomNumber: this.roomNumber,
-			hostelName: this.hostelName,
-		},
+		payload,
 		process.env.JWT_SECRET,
 		{ expiresIn: process.env.JWT_LIFETIME || '1d' }
 	);
