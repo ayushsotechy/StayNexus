@@ -5,6 +5,9 @@ import HostelCart from './pages/HostelCart.jsx';
 import Login from './pages/Login.jsx';
 import Profile from './pages/Profile.jsx';
 import Signup from './pages/Signup.jsx';
+import AttendantLogin from './pages/AttendantLogin.jsx';
+import AttendantSignup from './pages/AttendantSignup.jsx';
+import Reports from './pages/Reports.jsx';
 
 export default function App() {
   return (
@@ -16,6 +19,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/attendant/login" element={<AttendantLogin />} />
+        <Route path="/attendant/signup" element={<AttendantSignup />} />
+        <Route path="/reports" element={<Reports />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

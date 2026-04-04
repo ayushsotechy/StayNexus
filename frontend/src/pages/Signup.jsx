@@ -23,7 +23,7 @@ function Signup() {
               id="hostelName"
               value={hostelName}
               onChange={(e) => setHostelName(e.target.value)}
-              className="w-full px-3 py-2 rounded-md bg-[#1f2937] border border-gray-600"
+              className="w-full px-3 py-2 rounded-md bg-[#111827] border border-gray-600 text-white"
             >
               <option value="">Select hostel</option>
               {['ABH', 'NDPG', 'APJ', 'BCH', 'VMH', 'VVS', 'HJB', 'JCB', 'CVR', 'VLB'].map((hostel) => (
@@ -40,12 +40,12 @@ function Signup() {
               value={roomNumber}
               onChange={(e) => setRoomNumber(e.target.value)}
               placeholder="e.g. B-214"
-              className="w-full px-3 py-2 rounded-md bg-[#1f2937] border border-gray-600"
+              className="w-full px-3 py-2 rounded-md bg-[#111827] border border-gray-600 text-white placeholder-gray-400"
             />
           </div>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center gap-4">
           <GoogleLoginButton mode="signup" signupData={{ hostelName, roomNumber }} />
         </div>
       </div>

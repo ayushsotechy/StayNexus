@@ -15,6 +15,8 @@ const authenticationMiddleware = (req, res, next) => {
 			userId: payload.userId,
 			name: payload.name,
 			email: payload.email,
+			role: payload.role || 'student', // default to student since original createJWT didn't have role
+			hostelName: payload.hostelName,
 		};
 		return next();
 	} catch (error) {
