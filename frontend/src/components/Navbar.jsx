@@ -1,8 +1,32 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
 	const navigate = useNavigate();
-	const hasToken = Boolean(localStorage.getItem('token'));
+	const [token, setToken] = useState(localStorage.getItem('token') || '');
+
+	useEffect(() => {
+		const syncToken = () => setToken(localStorage.getItem('token') || '');
+		window.addEventListener('auth-changed', syncToken);
+		window.addEventListener('storage', syncToken);
+		return () => {
+			window.removeEventListener('auth-changed', syncToken);
+			window.removeEventListener('storage', syncToken);
+		};
+	}, []);
+
+	const userName = useMemo(() => {
+		if (!token) return null;
+		try {
+			const decoded = JSON.parse(atob(token.split('.')[1] || ''));
+			if (!decoded || (decoded.exp && decoded.exp * 1000 <= Date.now())) return null;
+			return decoded.name || decoded.email || 'Resident';
+		} catch {
+			return null;
+		}
+	}, [token]);
+
+	const hasToken = Boolean(userName);
 
 	const handleLogout = () => {
 		localStorage.removeItem('token');
@@ -22,6 +46,12 @@ function Navbar() {
 				</Link>
 
 				<div className="flex items-center gap-2">
+					<Link
+						to="/hostelcart"
+						className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
+					>
+						HostelCart
+					</Link>
 					{!hasToken ? (
 						<>
 							<Link to="/login" className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors">
@@ -32,13 +62,24 @@ function Navbar() {
 							</Link>
 						</>
 					) : (
-						<button
-							type="button"
-							onClick={handleLogout}
-							className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
-						>
-							Logout
-						</button>
+						<>
+							<span className="hidden sm:inline px-3 py-1.5 rounded-lg bg-white/10 text-sm text-[#f6f4ef]">
+								{userName}
+							</span>
+							<Link
+								to="/profile"
+								className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
+							>
+								Profile
+							</Link>
+							<button
+								type="button"
+								onClick={handleLogout}
+								className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
+							>
+								Logout
+							</button>
+						</>
 					)}
 				</div>
 			</div>

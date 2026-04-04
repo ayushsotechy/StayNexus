@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const features = [
   {
@@ -38,18 +39,19 @@ const Home = () => {
     greeting = null;
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    try {
+      window.dispatchEvent(new Event('auth-changed'));
+    } catch {
+      // no-op
+    }
+    window.location.href = '/';
+  };
+
   return (
     <div className="min-h-screen text-[#f6f4ef] bg-[radial-gradient(circle_at_15%_20%,#24403a_0%,#0f1d1a_35%,#0a1210_100%)]">
-      <header className="sticky top-0 z-20 backdrop-blur-md border-b border-white/10 bg-[#09100d]/70">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-xl font-black tracking-wide">StayNexus</div>
-          <nav className="hidden sm:flex items-center gap-6 text-sm text-[#c8d2cb]">
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#flow" className="hover:text-white transition-colors">How It Works</a>
-            <a href="#stats" className="hover:text-white transition-colors">Proof</a>
-          </nav>
-        </div>
-      </header>
+      <Navbar />
 
       <main className="max-w-6xl mx-auto px-6 py-16 sm:py-24">
         <section className="grid lg:grid-cols-2 gap-10 items-center">
@@ -69,8 +71,20 @@ const Home = () => {
 
             <div className="mt-8 flex flex-wrap gap-3">
               {greeting ? (
-                <div className="px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-sm sm:text-base">
-                  Welcome back, {greeting}
+                <div className="flex flex-wrap gap-3 items-center">
+                  <div className="px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-sm sm:text-base">
+                    Welcome back, {greeting}
+                  </div>
+                  <Link to="/profile" className="px-5 py-3 rounded-xl font-semibold border border-white/30 hover:bg-white/10 transition-colors">
+                    Profile
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="px-5 py-3 rounded-xl font-semibold border border-white/30 hover:bg-white/10 transition-colors"
+                  >
+                    Logout
+                  </button>
                 </div>
               ) : (
                 <>
