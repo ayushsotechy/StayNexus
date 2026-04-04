@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
   
 function GoogleLoginButton({ mode = 'login', signupData = null, onSignupRequired = null }) {
   const navigate = useNavigate();
+  const containerId = `google-signin-${mode}`;
 
   // define handler before SDK initialize so reference exists
   const handleCredentialResponse = async (response) => {
@@ -57,18 +58,26 @@ function GoogleLoginButton({ mode = 'login', signupData = null, onSignupRequired
       callback: handleCredentialResponse,
     });
 
-    const container = document.getElementById('google-signin');
+    const container = document.getElementById(containerId);
     if (!container) return;
 
     container.innerHTML = '';
     window.google.accounts.id.renderButton(container, {
-      theme: 'outline',
+      type: 'standard',
+      theme: 'filled_blue',
       size: 'large',
-      width: 260,
+      shape: 'pill',
+      text: mode === 'signup' ? 'signup_with' : 'continue_with',
+      logo_alignment: 'left',
+      width: 310,
     });
-  }, [mode, navigate, onSignupRequired, signupData]);
+  }, [containerId, mode, navigate, onSignupRequired, signupData]);
 
-  return <div id="google-signin"></div>;
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-3 shadow-lg shadow-black/25">
+      <div id={containerId} className="flex justify-center"></div>
+    </div>
+  );
 }
 
 export default GoogleLoginButton;

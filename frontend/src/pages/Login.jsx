@@ -1,6 +1,6 @@
 import GoogleLoginButton from '../components/GoogleLoginButton';
 import Navbar from '../components/Navbar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 function Login() {
@@ -14,8 +14,11 @@ function Login() {
         <p className="text-gray-300 mb-8">
           Continue with Google. If your account is new, you will be redirected to signup first.
         </p>
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center gap-4">
           <GoogleLoginButton mode="login" onSignupRequired={() => navigate('/signup')} />
+          <Link to="/attendant/login" className="text-sm text-indigo-400 hover:underline mt-4">
+            Are you an attendant? Login here.
+          </Link>
         </div>
       </div>
     </div>

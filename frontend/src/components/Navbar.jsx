@@ -47,6 +47,12 @@ function Navbar() {
 
 				<div className="flex items-center gap-2">
 					<Link
+						to="/reports"
+						className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
+					>
+						Reports
+					</Link>
+					<Link
 						to="/hostelcart"
 						className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
 					>
@@ -63,9 +69,6 @@ function Navbar() {
 						</>
 					) : (
 						<>
-							<span className="hidden sm:inline px-3 py-1.5 rounded-lg bg-white/10 text-sm text-[#f6f4ef]">
-								{userName}
-							</span>
 							<Link
 								to="/profile"
 								className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
@@ -79,6 +82,9 @@ function Navbar() {
 							>
 								Logout
 							</button>
+							<span className="hidden sm:flex ml-3 items-center px-3 py-1.5 rounded-lg border border-[#e8b15a]/35 bg-[#e8b15a]/10 text-sm font-semibold text-[#f6f4ef] max-w-[160px] truncate">
+								{userName}
+							</span>
 						</>
 					)}
 				</div>

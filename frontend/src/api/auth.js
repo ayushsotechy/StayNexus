@@ -21,4 +21,38 @@ export async function googleLogin(credential, extra = {}) {
   return data;
 }
 
+export async function attendantLogin(credentials) {
+  const res = await fetch(`${API_BASE_URL}/attendant/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credentials),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data?.msg || data?.message || 'Login failed');
+    throw err;
+  }
+  return data;
+}
+
+export async function attendantSignup(dataObj) {
+  const { onboardingKey, ...payload } = dataObj;
+  const res = await fetch(`${API_BASE_URL}/attendant/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(onboardingKey ? { 'x-onboarding-key': onboardingKey } : {}),
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data?.msg || data?.message || 'Signup failed');
+    throw err;
+  }
+  return data;
+}
+
 

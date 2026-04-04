@@ -5,6 +5,8 @@ dotenv.config();
 import connectDB from './configs/database.js';
 import hostelCartRouter from './routes/hostelcart.route.js';
 import userRouter from './routes/user.route.js';
+import attendantRouter from './routes/attendant.route.js';
+import reportRouter from './routes/report.route.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,6 +20,8 @@ app.use(
 app.use(express.json());
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/hostelcart', hostelCartRouter);
+app.use('/api/v1/attendant', attendantRouter);
+app.use('/api/v1/report', reportRouter);
 
 app.get('/', (req, res) => {
 	res.json({ status: 'hello from staynexus' });
