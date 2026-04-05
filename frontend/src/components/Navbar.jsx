@@ -41,7 +41,7 @@ function Navbar() {
 	return (
 		<header className="sticky top-0 z-20 backdrop-blur-md border-b border-white/10 bg-[#09100d]/70">
 			<div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-				<Link to="/" className="text-xl font-black tracking-wide text-[#f6f4ef]">
+				<Link to="/" className="text-2xl font-black tracking-wide text-[#60a5fa] drop-shadow-[0_0_6px_rgba(96,165,250,0.4)]">
 					StayNexus
 				</Link>
 
@@ -69,7 +69,10 @@ function Navbar() {
 							<Link to="/login" className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors">
 								Login
 							</Link>
-							<Link to="/signup" className="px-3 py-1.5 rounded-lg text-sm font-semibold bg-[#e8b15a] text-[#152018] hover:bg-[#f2c374] transition-colors">
+							<Link
+								to="/signup"
+								className="px-3 py-1.5 rounded-lg text-sm font-semibold bg-[#2563eb] text-white hover:bg-[#1d4ed8] shadow-md shadow-blue-500/20 transition-all duration-300 hover:scale-105"
+							>
 								Signup
 							</Link>
 						</>
