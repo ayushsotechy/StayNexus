@@ -64,6 +64,12 @@ function Navbar() {
 					>
 						Attendance
 					</Link>
+					<Link
+						to="/leave"
+						className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
+					>
+						Leave
+					</Link>
 					{!hasToken ? (
 						<>
 							<Link to="/login" className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors">
