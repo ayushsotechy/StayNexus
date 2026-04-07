@@ -9,6 +9,7 @@ import Signup from './pages/Signup.jsx';
 import AttendantLogin from './pages/AttendantLogin.jsx';
 import AttendantSignup from './pages/AttendantSignup.jsx';
 import Reports from './pages/Reports.jsx';
+import Complaints from './pages/Complaints.jsx';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/attendant/login" element={<AttendantLogin />} />
         <Route path="/attendant/signup" element={<AttendantSignup />} />
         <Route path="/reports" element={<Reports />} />
+        <Route path="/complaints" element={<Complaints />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
