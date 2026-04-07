@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Attendance from './pages/Attendance.jsx';
 import Home from './pages/Home.jsx';
 import HostelCart from './pages/HostelCart.jsx';
+import Leave from './pages/Leave.jsx';
 import Login from './pages/Login.jsx';
 import Profile from './pages/Profile.jsx';
 import Signup from './pages/Signup.jsx';
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/hostelcart" element={<HostelCart />} />
+        <Route path="/leave" element={<Leave />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
