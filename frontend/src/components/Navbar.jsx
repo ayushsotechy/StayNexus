@@ -28,6 +28,17 @@ function Navbar() {
 
 	const hasToken = Boolean(userName);
 
+	const [open, setOpen] = useState(false);
+
+	useEffect(() => {
+	  const onClick = (e) => {
+	    // close if clicking outside any element with data-user-menu
+	    if (!e.target.closest('[data-user-menu]')) setOpen(false);
+	  };
+	  document.addEventListener('click', onClick);
+	  return () => document.removeEventListener('click', onClick);
+	}, []);
+
 	const handleLogout = () => {
 		localStorage.removeItem('token');
 		try {
@@ -45,7 +56,7 @@ function Navbar() {
 					StayNexus
 				</Link>
 
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-3">
 					<Link
 						to="/reports"
 						className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
@@ -64,6 +75,12 @@ function Navbar() {
 					>
 						Attendance
 					</Link>
+					<Link
+						to="/leave"
+						className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
+					>
+						Leave
+					</Link>
 					{!hasToken ? (
 						<>
 							<Link to="/login" className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors">
@@ -77,24 +94,37 @@ function Navbar() {
 							</Link>
 						</>
 					) : (
-						<>
-							<Link
-								to="/profile"
-								className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
-							>
-								Profile
-							</Link>
-							<button
-								type="button"
-								onClick={handleLogout}
-								className="px-3 py-1.5 rounded-lg border border-white/25 text-sm text-[#f6f4ef] hover:bg-white/10 transition-colors"
-							>
-								Logout
-							</button>
-							<span className="hidden sm:flex ml-3 items-center px-3 py-1.5 rounded-lg border border-[#e8b15a]/35 bg-[#e8b15a]/10 text-sm font-semibold text-[#f6f4ef] max-w-[160px] truncate">
-								{userName}
-							</span>
-						</>
+						<div className="relative" data-user-menu>
+						  <button
+						    type="button"
+						    onClick={() => setOpen((v) => !v)}
+						    className="px-3 py-1.5 rounded-lg text-sm font-semibold bg-[#2563eb] text-white hover:bg-[#1d4ed8] shadow-md shadow-blue-500/20 transition-all duration-300 hover:-translate-y-0.5"
+						  >
+						    {userName}
+						  </button>
+
+						  {open && (
+						    <div className="absolute right-0 mt-2 w-36 rounded-xl border border-gray-700/40 bg-[#020617]/90 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)] overflow-hidden">
+						      <Link
+						        to="/profile"
+						        onClick={() => setOpen(false)}
+						        className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-800/40 hover:text-[#60a5fa] transition-colors"
+						      >
+						        Profile
+						      </Link>
+						      <button
+						        type="button"
+						        onClick={() => {
+						          setOpen(false);
+						          handleLogout();
+						        }}
+						        className="w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-800/40 hover:text-[#60a5fa] transition-colors"
+						      >
+						        Logout
+						      </button>
+						    </div>
+						  )}
+						</div>
 					)}
 				</div>
 			</div>
